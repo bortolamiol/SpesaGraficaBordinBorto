@@ -17,7 +17,8 @@ public class GraficaProva {
 		try {
 			GraficaProva window = new GraficaProva();
 			window.open();
-		} catch (Exception e) {
+		} catch (Exception e) {//ciaoaoa
+			
 			e.printStackTrace();
 		}
 	}//ciao
