@@ -20,7 +20,7 @@ public class GraficaProva {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}//ciao
 
 	/**
 	 * Open the window.
