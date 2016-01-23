@@ -22,7 +22,7 @@ public class GraficaProva {
 			e.printStackTrace();
 		}
 	}//ciao
-
+//cjd
 	/**
 	 * Open the window.
 	 */
