@@ -4,7 +4,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
-
+import ProgettoGrafica.gianpaolobordin.*;
 public class GraficaProva {
 
 	protected Shell shell;
