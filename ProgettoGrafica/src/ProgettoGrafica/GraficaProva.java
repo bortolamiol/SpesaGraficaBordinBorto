@@ -66,6 +66,11 @@ public class GraficaProva {
 		shlNegoziofico.setText("NegozioFico");
 		
 		Button btnAggiungi = new Button(shlNegoziofico, SWT.NONE);
+		btnAggiungi.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		btnAggiungi.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		btnAggiungi.setBounds(67, 243, 125, 30);
 		btnAggiungi.setText("Aggiungi Al Carrello");
@@ -137,14 +142,29 @@ public class GraficaProva {
 		lblNewLabel.setText("Codice Prodotto");
 		
 		Button btnSalva = new Button(shlNegoziofico, SWT.NONE);
+		btnSalva.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		btnSalva.setBounds(10, 287, 105, 25);
 		btnSalva.setText("Elimina Prodotto");
 		
 		Button btnNewButton = new Button(shlNegoziofico, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		btnNewButton.setBounds(345, 287, 80, 25);
 		btnNewButton.setText("Salva Carrello");
 		
 		Button btnCaricaCarrello = new Button(shlNegoziofico, SWT.NONE);
+		btnCaricaCarrello.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		btnCaricaCarrello.setText("Carica Carrello");
 		btnCaricaCarrello.setBounds(431, 287, 93, 25);
 		
@@ -155,6 +175,11 @@ public class GraficaProva {
 		label_3.setBounds(0, 32, 534, 2);
 		
 		Button btnCalcola = new Button(shlNegoziofico, SWT.NONE);
+		btnCalcola.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		btnCalcola.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		btnCalcola.setBounds(343, 318, 82, 25);
 		btnCalcola.setText("CALCOLA");
