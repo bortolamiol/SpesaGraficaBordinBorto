@@ -1,5 +1,6 @@
 package ProgettoGrafica;
 
+import javax.swing.*;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
@@ -22,10 +23,10 @@ public class GraficaProva {
 	private Text Nome;
 	private Text text;
 	private Table table;
-	private Text text_1;
+	private Text Materiale;
 	private Text text_2;
 	private Text text_3;
-
+	private int controlloA=0;
 	/**
 	 * Launch the application.
 	 * @param args
@@ -64,7 +65,7 @@ public class GraficaProva {
 		//shell.setEnabled(false);
 		shlNegoziofico.setSize(550, 390);
 		shlNegoziofico.setText("NegozioFico");
-		
+		JOptionPane.showMessageDialog (null, "Benvenuto");
 		Button btnAggiungi = new Button(shlNegoziofico, SWT.NONE);
 		btnAggiungi.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -86,6 +87,20 @@ public class GraficaProva {
 		lblCarrello.setText("Carrello:");
 		
 		Button btnAlimentari = new Button(shlNegoziofico, SWT.CHECK);
+		
+		btnAlimentari.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				controlloA++;
+				if(controlloA%2==0){
+					Materiale.setEnabled(true);
+					}
+					else{
+						Materiale.setEnabled(false);
+						//JOptionPane.showMessageDialog(null, e);
+						}
+			}
+		});
 		btnAlimentari.setBounds(170, 46, 93, 16);
 		btnAlimentari.setText("Alimentari");
 		
@@ -117,8 +132,8 @@ public class GraficaProva {
 		lblPrezzo.setBounds(138, 131, 34, 15);
 		lblPrezzo.setText("Prezzo");
 		
-		text_1 = new Text(shlNegoziofico, SWT.BORDER);
-		text_1.setBounds(138, 216, 105, 21);
+		Materiale = new Text(shlNegoziofico, SWT.BORDER);
+		Materiale.setBounds(138, 216, 105, 21);
 		
 		Label lblMateriale = new Label(shlNegoziofico, SWT.NONE);
 		lblMateriale.setBounds(138, 195, 55, 15);
