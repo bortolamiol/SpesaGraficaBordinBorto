@@ -95,7 +95,7 @@ public class GraficaProva {
 				
 				if(ControlloLunghezza==0){
 					carrello.add("ciao");
-					
+					//j
 			
 				}
 			}
