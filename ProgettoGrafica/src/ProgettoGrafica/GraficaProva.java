@@ -21,12 +21,14 @@ public class GraficaProva {
 
 	protected Shell shlNegoziofico;
 	private Text Nome;
-	private Text text;
-	private Table table;
+	private Text prezzo;
 	private Text Materiale;
-	private Text text_2;
+	private Text codiceprodotto;
 	private Text text_3;
 	private int controlloA=0;
+	private int controllo2A=0;
+	private int ControlloLunghezza=0;
+	private Text datascadenza;
 	/**
 	 * Launch the application.
 	 * @param args
@@ -66,10 +68,36 @@ public class GraficaProva {
 		shlNegoziofico.setSize(550, 390);
 		shlNegoziofico.setText("NegozioFico");
 		JOptionPane.showMessageDialog (null, "Benvenuto");
+		List carrello = new List(shlNegoziofico, SWT.BORDER);
+		carrello.setBounds(343, 79, 250, 194);
+		
 		Button btnAggiungi = new Button(shlNegoziofico, SWT.NONE);
 		btnAggiungi.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				//controllo se ho inserito qualcosa nel nome 
+				int Lunghezza;
+				if( (Lunghezza = Nome.getText().length())==0 ){
+					ControlloLunghezza++;
+				}
+				
+				//controllo se il prezzo inserito è maggiore di 0.0
+				float LunghPrezzo=Float.parseFloat(prezzo.getText());
+				if(LunghPrezzo <=0.0){
+					ControlloLunghezza++;
+				}
+				
+				//controllo se il codice prodotto inserito è valido
+				int LunghezzaCodiceProdotto;
+				if( (LunghezzaCodiceProdotto = codiceprodotto.getText().length())<=0 ){
+					ControlloLunghezza++;
+				}
+				
+				if(ControlloLunghezza==0){
+					carrello.add("ciao");
+					
+			
+				}
 			}
 		});
 		btnAggiungi.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
@@ -79,8 +107,8 @@ public class GraficaProva {
 		Nome = new Text(shlNegoziofico, SWT.BORDER);
 		Nome.setBounds(10, 152, 105, 21);
 		
-		text = new Text(shlNegoziofico, SWT.BORDER);
-		text.setBounds(138, 152, 34, 21);
+		prezzo = new Text(shlNegoziofico, SWT.BORDER);
+		prezzo.setBounds(138, 152, 34, 21);
 		
 		Label lblCarrello = new Label(shlNegoziofico, SWT.NONE);
 		lblCarrello.setBounds(343, 47, 55, 15);
@@ -108,15 +136,18 @@ public class GraficaProva {
 		btnNon.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				controllo2A++;
+				if(controllo2A%2==0){
+					datascadenza.setEnabled(true);
+					}
+					else{
+						datascadenza.setEnabled(false);
+						//JOptionPane.showMessageDialog(null, e);
+						}
 			}
 		});
 		btnNon.setBounds(10, 46, 105, 16);
 		btnNon.setText("Non Alimentare");
-		
-		table = new Table(shlNegoziofico, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setBounds(343, 68, 181, 213);
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
 		
 		Label lblNomeProdotto = new Label(shlNegoziofico, SWT.NONE);
 		lblNomeProdotto.setBounds(10, 131, 105, 15);
@@ -145,16 +176,25 @@ public class GraficaProva {
 		Label label_1 = new Label(shlNegoziofico, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label_1.setBounds(0, 279, 267, 2);
 		
-		Button btnRadioButton = new Button(shlNegoziofico, SWT.RADIO);
-		btnRadioButton.setBounds(81, 79, 111, 15);
-		btnRadioButton.setText("Tessera Fedelt\u00E0");
+		Button tessera = new Button(shlNegoziofico, SWT.RADIO);
+		tessera.setBounds(81, 79, 111, 15);
+		tessera.setText("Tessera Fedelt\u00E0");
 		
-		text_2 = new Text(shlNegoziofico, SWT.BORDER);
-		text_2.setBounds(10, 216, 105, 21);
+		codiceprodotto = new Text(shlNegoziofico, SWT.BORDER);
+		codiceprodotto.setBounds(10, 216, 105, 21);
 		
 		Label lblNewLabel = new Label(shlNegoziofico, SWT.NONE);
 		lblNewLabel.setBounds(10, 195, 92, 15);
 		lblNewLabel.setText("Codice Prodotto");
+		
+		Button btnElimina = new Button(shlNegoziofico, SWT.NONE);
+		btnElimina.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		btnElimina.setBounds(10, 287, 105, 25);
+		btnElimina.setText("Elimina Prodotto");
 		
 		Button btnSalva = new Button(shlNegoziofico, SWT.NONE);
 		btnSalva.addSelectionListener(new SelectionAdapter() {
@@ -162,17 +202,8 @@ public class GraficaProva {
 			public void widgetSelected(SelectionEvent e) {
 			}
 		});
-		btnSalva.setBounds(10, 287, 105, 25);
-		btnSalva.setText("Elimina Prodotto");
-		
-		Button btnNewButton = new Button(shlNegoziofico, SWT.NONE);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(345, 287, 80, 25);
-		btnNewButton.setText("Salva Carrello");
+		btnSalva.setBounds(345, 287, 80, 25);
+		btnSalva.setText("Salva Carrello");
 		
 		Button btnCaricaCarrello = new Button(shlNegoziofico, SWT.NONE);
 		btnCaricaCarrello.addSelectionListener(new SelectionAdapter() {
@@ -201,6 +232,15 @@ public class GraficaProva {
 		
 		text_3 = new Text(shlNegoziofico, SWT.BORDER);
 		text_3.setBounds(441, 318, 83, 21);
+		
+		datascadenza = new Text(shlNegoziofico, SWT.BORDER);
+		datascadenza.setBounds(192, 152, 62, 21);
+		
+		Label lblDataDiScadenza = new Label(shlNegoziofico, SWT.NONE);
+		lblDataDiScadenza.setBounds(192, 131, 98, 15);
+		lblDataDiScadenza.setText("Data di Scadenza");
+		
+		
 
 	}
 }
