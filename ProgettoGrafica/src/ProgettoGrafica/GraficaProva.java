@@ -81,21 +81,39 @@ public class GraficaProva {
 					ControlloLunghezza++;
 				}
 				
-				//controllo se il prezzo inserito è maggiore di 0.0
-				float LunghPrezzo=Float.parseFloat(prezzo.getText());
-				if(LunghPrezzo <=0.0){
+				//controllo se il prezzo inserito Ã¨ maggiore di 0.0
+				float RisPrezzo=Float.parseFloat(prezzo.getText());
+				if(RisPrezzo <=0.0){
 					ControlloLunghezza++;
 				}
 				
-				//controllo se il codice prodotto inserito è valido
+				//controllo se il codice prodotto inserito Ã¨ valido
 				int LunghezzaCodiceProdotto;
 				if( (LunghezzaCodiceProdotto = codiceprodotto.getText().length())<=0 ){
 					ControlloLunghezza++;
 				}
+				//controllo se ho scelto non alimentari,controllo se ho messo materiale
+				/*btnAlimentari.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent e) {
+					Lunghezza=0;
+						if( (Lunghezza = Materiale.getText().length())==0 ){
+							ControlloLunghezza++;
+						}
+					}
+				});
 				
+				btnNonAlimentari.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent e) {
+					Lunghezza=0;
+						if( (Lunghezza = data.getText().length())==0 ){
+							ControlloLunghezza++;
+						}
+					}
+				});*/
+				//inserisco ciÃ² che scritto nel text box carrello
 				if(ControlloLunghezza==0){
-					carrello.add("ciao");
-					//j
+					carrello.add(Nome.getText() ,"   " ,RisPrezzo );
+					
 			
 				}
 			}
