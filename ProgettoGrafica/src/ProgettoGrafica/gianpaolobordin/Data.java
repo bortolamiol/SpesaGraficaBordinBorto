@@ -48,4 +48,14 @@ public class Data {
 		return giorno+"/"+mese+"/"+anno;
 	}
 
+	public void setEnabled(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setBounds(int i, int j, int k, int l) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
