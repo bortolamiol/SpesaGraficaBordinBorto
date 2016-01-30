@@ -19,4 +19,12 @@ public class NonAlimentari extends Prodotti{
 		}
 		
 	}
+
+	public String getMateriale() {
+		return materiale;
+	}
+
+	public void setMateriale(String materiale) {
+		this.materiale = materiale;
+	}
 }
