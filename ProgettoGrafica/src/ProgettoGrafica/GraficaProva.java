@@ -253,6 +253,7 @@ public class GraficaProva {
 		btnCaricaCarrello.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				ls.CaricaCarrello();
 			}
 		});
 		btnCaricaCarrello.setText("Carica Carrello");

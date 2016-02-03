@@ -47,13 +47,14 @@ public class ListaSpesa {
 		BufferedWriter scrittore;
 
 		try {
-			scrittore = new BufferedWriter(new FileWriter("Z:DIOPORCO.txt", true)); //NB true per APPEND
+			scrittore = new BufferedWriter(new FileWriter("Z:lista.txt", true)); //NB true per APPEND
+			//scrittore.write("Negozio Bord && Bort\n");
 			for(int i=0;i<this.nprod;i++){
 				if(lista[i] instanceof Alimentari){
-					scrittore.write(";" + lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((Alimentari)lista[i]).getScadenza() + "\r\n");
+					scrittore.write(";" +"Alimentare: "+ lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((Alimentari)lista[i]).getScadenza() + "\r\n");
 				}
 				else{
-				scrittore.write(";" + lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((NonAlimentari)lista[i]).getMateriale() + "\r\n");
+				scrittore.write(";" +"Non Alimentare: "+lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((NonAlimentari)lista[i]).getMateriale() + "\r\n");
 				}
 			}
 			scrittore.close();
@@ -72,11 +73,32 @@ public class ListaSpesa {
 		String testo = "";
 		String[] elementi;
 		try {
-			lettore = new BufferedReader(new FileReader("Z:scont.txt"));
+			lettore = new BufferedReader(new FileReader("Z:lista.txt"));
 			do {
 				riga = lettore.readLine();
 				testo = testo + riga + "\n";
 				elementi = testo.split(";");
+				elementi = testo.split("/");
+				// crea oggetti alim o non alim
+				if(elementi[0] == "Alimentari"){
+					int c;
+					double p;
+					c = Integer.parseInt(elementi[1]);
+					p = Double.parseDouble(elementi[3]);
+					int g,m,a;
+					g = Integer.parseInt(elementi[4]);
+					m = Integer.parseInt(elementi[5]);
+					a = Integer.parseInt(elementi[6]);
+					Data d = new Data(g,m,a);
+					Alimentari A = new Alimentari(c, elementi[1], p, d);
+				}else{
+					
+					int c;
+					double p;
+					c = Integer.parseInt(elementi[1]);
+					p = Double.parseDouble(elementi[3]);
+					
+				}
 				
 			} while (riga != null);
 		//	MessageDialog.openInformation(shell, "Lettura file", "Riga: " + testo);
