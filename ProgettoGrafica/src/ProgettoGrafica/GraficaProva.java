@@ -152,13 +152,13 @@ public class GraficaProva {
 					
 						int codice = Integer.valueOf(codiceprodotto.getText());
 						NonAlimentari nn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
+						System.out.println(nn.getMateriale());
+						nn.applicaSconto();
+						
 					//	NonAlimentari nnn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
 						try {
 							//nn.applicaSconto();
-							if(nat==0){
-								
-								nn.applicaSconto();
-							}
+						
 							ls.aggiungiCarrello(nn);
 							//lst.aggiungiCarrello(nnn);
 							
@@ -177,9 +177,7 @@ public class GraficaProva {
 						try {
 							
 							//n.applicaSconto();
-							if(nat==0){
-								n.applicaSconto();
-							}
+							
 							ls.aggiungiCarrello(n);
 							//lst.aggiungiCarrello(na);
 							
@@ -303,6 +301,7 @@ public class GraficaProva {
 					txtTotale.setText(" "+  lst.calcolaSpesa());
 				}
 				else{*/
+				
 					txtTotale.setText(" "+ ls.calcolaSpesa() );
 				//}
 				

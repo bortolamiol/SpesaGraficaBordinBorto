@@ -46,7 +46,7 @@ public class Prodotti {
 	}
 	//others
 	public void applicaSconto(){
-		this.prezzo = this.prezzo*0.95;
+		
 	}
 	@Override
 	public String toString() {
