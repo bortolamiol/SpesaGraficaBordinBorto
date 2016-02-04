@@ -28,8 +28,10 @@ public class GraficaProva {
 	private Text txtTotale;
 	private int controlloA=0;
 	private int ncarr=0;
-	private ListaSpesa ls =new ListaSpesa(false);
-	private ListaSpesa lst =new ListaSpesa(true);
+	private ListaSpesa ls;
+	private Prodotti p =new Prodotti();
+	
+	//private ListaSpesa lst =new ListaSpesa(true);
 	private int controllo2A=0;
 	private int ControlloLunghezza=0;
 	/**
@@ -65,12 +67,24 @@ public class GraficaProva {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		
+		int nat= JOptionPane.showConfirmDialog(null,"Hai la tessera fedeltà?", "tessera", JOptionPane.YES_NO_OPTION);
+		if(nat==0){
+			//si ce l'ho
+			 ls =new ListaSpesa(true);
+		}
+		else{
+			//no
+			ls =new ListaSpesa(false);
+		}
+		
 		shlNegoziofico = new Shell();
 		shlNegoziofico.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		//shell.setEnabled(false);
 		shlNegoziofico.setSize(550, 390);
 		shlNegoziofico.setText("NegozioFico");
 		//JOptionPane.showMessageDialog (null, "Benvenuto");
+	
 		List carrello = new List(shlNegoziofico, SWT.BORDER);
 		carrello.setBounds(343, 79, 250, 194);
 		
@@ -103,11 +117,6 @@ public class GraficaProva {
 				DataScadenza.setEnabled(true);
 			}
 		});
-		
-		
-		Button btntessera = new Button(shlNegoziofico, SWT.RADIO);
-		btntessera.setBounds(404, 47, 90, 16);
-		btntessera.setText("tessera fedelt\u00E0");
 		
 		
 		btnAlimentare.setBounds(111, 10, 107, 16);
@@ -143,11 +152,17 @@ public class GraficaProva {
 					
 						int codice = Integer.valueOf(codiceprodotto.getText());
 						NonAlimentari nn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
-						NonAlimentari nnn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
+					//	NonAlimentari nnn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
 						try {
 							//nn.applicaSconto();
+							if(nat==0){
+								
+								nn.applicaSconto();
+							}
 							ls.aggiungiCarrello(nn);
-							lst.aggiungiCarrello(nnn);
+							//lst.aggiungiCarrello(nnn);
+							
+							
 							
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
@@ -158,12 +173,16 @@ public class GraficaProva {
 						
 						int codice = Integer.valueOf(codiceprodotto.getText());
 						Alimentari n = new Alimentari(codice, Nome.getText() ,RisPrezzo, new Data(DataScadenza.getDay(),DataScadenza.getMonth(),DataScadenza.getYear() )) ;					
-						Alimentari na = new Alimentari(codice, Nome.getText() ,RisPrezzo, new Data(DataScadenza.getDay(),DataScadenza.getMonth(),DataScadenza.getYear() )) ;	
+						//Alimentari na = new Alimentari(codice, Nome.getText() ,RisPrezzo, new Data(DataScadenza.getDay(),DataScadenza.getMonth(),DataScadenza.getYear() )) ;	
 						try {
 							
 							//n.applicaSconto();
+							if(nat==0){
+								n.applicaSconto();
+							}
 							ls.aggiungiCarrello(n);
-							lst.aggiungiCarrello(na);
+							//lst.aggiungiCarrello(na);
+							
 							
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
@@ -230,7 +249,7 @@ public class GraficaProva {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ls.eliminaProdotto();
-				lst.eliminaProdotto();
+				//lst.eliminaProdotto();
 				carrello.remove(ncarr-1);
 				ncarr--;
 			}
@@ -278,13 +297,14 @@ public class GraficaProva {
 		btnCalcola.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-			
-				if(btntessera.getSelection() == true){
+			/*
+				if(nat==0){
+					
 					txtTotale.setText(" "+  lst.calcolaSpesa());
 				}
-				else{
+				else{*/
 					txtTotale.setText(" "+ ls.calcolaSpesa() );
-				}
+				//}
 				
 			}
 		});
