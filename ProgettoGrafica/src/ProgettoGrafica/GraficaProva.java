@@ -40,8 +40,12 @@ public class GraficaProva {
 	 */
 	public static void main(String[] args) {
 		try {
+			
 			GraficaProva window = new GraficaProva();
 			window.open();
+			
+			
+			
 		} catch (Exception e) {//ciaoaoa
 			
 			e.printStackTrace();
@@ -52,10 +56,22 @@ public class GraficaProva {
 	 * Open the window.
 	 */
 	public void open() {
+		
 		Display display = Display.getDefault();
 		createContents();
 		shlNegoziofico.open();
 		shlNegoziofico.layout();
+		
+		int nat= JOptionPane.showConfirmDialog(null,"Hai la tessera fedeltà?", "tessera", JOptionPane.YES_NO_OPTION);
+		if(nat==0){
+			//si ce l'ho
+			 ls =new ListaSpesa(true);
+		}
+		else{
+			//no
+			ls =new ListaSpesa(false);
+		}
+		
 		while (!shlNegoziofico.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
@@ -68,15 +84,7 @@ public class GraficaProva {
 	 */
 	protected void createContents() {
 		
-		int nat= JOptionPane.showConfirmDialog(null,"Hai la tessera fedeltà?", "tessera", JOptionPane.YES_NO_OPTION);
-		if(nat==0){
-			//si ce l'ho
-			 ls =new ListaSpesa(true);
-		}
-		else{
-			//no
-			ls =new ListaSpesa(false);
-		}
+		
 		
 		shlNegoziofico = new Shell();
 		shlNegoziofico.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
@@ -84,7 +92,7 @@ public class GraficaProva {
 		shlNegoziofico.setSize(550, 390);
 		shlNegoziofico.setText("NegozioFico");
 		//JOptionPane.showMessageDialog (null, "Benvenuto");
-	
+		
 		List carrello = new List(shlNegoziofico, SWT.BORDER);
 		carrello.setBounds(343, 79, 250, 194);
 		
@@ -128,22 +136,48 @@ public class GraficaProva {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//controllo se ho inserito qualcosa nel nome 
+				ControlloLunghezza = 0;
 				int Lunghezza;
-				if( (Lunghezza = Nome.getText().length())==0 ){
-					ControlloLunghezza++;
+				try {
+					if( (Lunghezza = Nome.getText().length())==0 ){
+						ControlloLunghezza++;
+						JOptionPane.showMessageDialog(null, "Inserisci il nome del prodotto");
+					}
+					
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Inserisci un Nome valido");
 				}
+				
 				
 				//controllo se il prezzo inserito Ã¨ maggiore di 0.0
-				double RisPrezzo=Double.parseDouble(prezzo.getText());
-				if(RisPrezzo <=0.0){
-					ControlloLunghezza++;
+				double RisPrezzo=0;
+				try {
+					RisPrezzo = Double.parseDouble(prezzo.getText());
+					if(RisPrezzo <=0.0){
+						ControlloLunghezza++;
+						JOptionPane.showMessageDialog(null, "Inserisci un Prezzo valido,non regaliamo nulla");
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Inserisci un Prezzo valido");
 				}
 				
-				//controllo se il codice prodotto inserito Ã¨ valido
+				
+				//controllo se il codice prodotto inserito e' valido
 				int LunghezzaCodiceProdotto;
-				if( (LunghezzaCodiceProdotto = codiceprodotto.getText().length())<=0 ){
-					ControlloLunghezza++;
+				int codiceProdotto;//=codiceprodotto.getText();
+				try {
+					codiceProdotto = Integer.parseInt(codiceprodotto.getText());
+					if( ( LunghezzaCodiceProdotto = codiceprodotto.getText().length())<=0 ){
+						ControlloLunghezza++;
+						JOptionPane.showMessageDialog(null, "Inserisci il codice prodotto");
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Inserisci un codice valido");
+					return;
 				}
+				 
+				
+				
 			
 				if(ControlloLunghezza==0){
 					carrello.add(Nome.getText() + ":   " +RisPrezzo + " €");
@@ -153,7 +187,7 @@ public class GraficaProva {
 						int codice = Integer.valueOf(codiceprodotto.getText());
 						NonAlimentari nn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
 						System.out.println(nn.getMateriale());
-						nn.applicaSconto();
+						//nn.applicaSconto();
 						
 					//	NonAlimentari nnn = new NonAlimentari(codice, Nome.getText() ,RisPrezzo,  Materiale.getText());
 						try {
@@ -174,6 +208,7 @@ public class GraficaProva {
 						int codice = Integer.valueOf(codiceprodotto.getText());
 						Alimentari n = new Alimentari(codice, Nome.getText() ,RisPrezzo, new Data(DataScadenza.getDay(),DataScadenza.getMonth(),DataScadenza.getYear() )) ;					
 						//Alimentari na = new Alimentari(codice, Nome.getText() ,RisPrezzo, new Data(DataScadenza.getDay(),DataScadenza.getMonth(),DataScadenza.getYear() )) ;	
+						
 						try {
 							
 							//n.applicaSconto();

@@ -12,7 +12,7 @@ public class NonAlimentari extends Prodotti{
 	
 	public void applicaSconto(){
 		
-		if(this.materiale=="carta" ||this.materiale=="plastica" || this.materiale == "vetro" || this.materiale=="umido"){
+		if(this.materiale.equalsIgnoreCase("carta") ||this.materiale.equalsIgnoreCase("plastica") || this.materiale.equalsIgnoreCase("vetro") || this.materiale.equalsIgnoreCase("umido")){
 			this.prezzo = this.prezzo*0.9;
 		}else{
 			super.applicaSconto();
