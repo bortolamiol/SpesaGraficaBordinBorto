@@ -281,10 +281,15 @@ public class GraficaProva {
 		btnElimina.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				if(ncarr>0){
 				ls.eliminaProdotto();
 				//lst.eliminaProdotto();
 				carrello.remove(ncarr-1);
 				ncarr--;
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Il tuo carrello è vuoto");
+				}
 			}
 		});
 		btnElimina.setBounds(10, 287, 105, 25);
