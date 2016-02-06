@@ -29,7 +29,10 @@ public class GraficaProva {
 	private int controlloA=0;
 	private int ncarr=0;
 	private ListaSpesa ls;
+	private int nElimina=0;
 	private Prodotti p =new Prodotti();
+	public List carrello;
+	
 	
 	//private ListaSpesa lst =new ListaSpesa(true);
 	private int controllo2A=0;
@@ -93,8 +96,37 @@ public class GraficaProva {
 		shlNegoziofico.setText("NegozioFico");
 		//JOptionPane.showMessageDialog (null, "Benvenuto");
 		
-		List carrello = new List(shlNegoziofico, SWT.BORDER);
+		carrello = new List(shlNegoziofico, SWT.BORDER);
+		carrello.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int nat= JOptionPane.showConfirmDialog(null,"Vuoi eliminare questo prodotto?", "Elimina", JOptionPane.YES_NO_OPTION);
+				if(nat==0){
+					
+					if(ncarr>0){
+						
+						nElimina= carrello.getSelectionIndex();
+						//JOptionPane.showMessageDialog(null, nElimina);
+						carrello.remove(nElimina);
+						ls.eliminaProdotto(nElimina);
+						ncarr--;
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Il tuo carrello è vuoto");
+						}
+					//si ce l'ho
+				
+				}
+				else{
+					return;
+					//no
+					
+				}
+			}
+		});
 		carrello.setBounds(343, 79, 250, 194);
+
+
 		
 		
 		DateTime DataScadenza = new DateTime(shlNegoziofico, SWT.BORDER);
@@ -247,7 +279,8 @@ public class GraficaProva {
 		lblNomeProdotto.setBounds(10, 131, 105, 15);
 		lblNomeProdotto.setText("Nome Prodotto");
 		
-		Label lblNegozioBord = new Label(shlNegoziofico, SWT.BORDER);
+		Label lblNegozioBord = new Label(shlNegoziofico, SWT.NONE);
+		lblNegozioBord.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		lblNegozioBord.setAlignment(SWT.CENTER);
 		lblNegozioBord.setFont(SWTResourceManager.getFont("Snap ITC", 14, SWT.NORMAL));
 		lblNegozioBord.setBounds(160, 0, 238, 25);
@@ -281,11 +314,13 @@ public class GraficaProva {
 		btnElimina.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 				if(ncarr>0){
-				ls.eliminaProdotto();
-				//lst.eliminaProdotto();
-				carrello.remove(ncarr-1);
-				ncarr--;
+				
+					ls.eliminaUltimoProdotto();
+					
+					ncarr--;
+					carrello.remove(ncarr);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Il tuo carrello è vuoto");
@@ -310,14 +345,21 @@ public class GraficaProva {
 		btnCaricaCarrello.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ls.CaricaCarrello();
+				try {
+					ls.CaricaCarrello();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnCaricaCarrello.setText("Carica Carrello");
 		btnCaricaCarrello.setBounds(431, 287, 93, 25);
 		
-		txtTotale = new Text(shlNegoziofico, SWT.BORDER);
-		txtTotale.setBounds(441, 318, 83, 21);
+		txtTotale = new Text(shlNegoziofico, SWT.CENTER);
+		txtTotale.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
+		txtTotale.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+		txtTotale.setBounds(431, 318, 93, 26);
 		
 		Label lblDataDiScadenza = new Label(shlNegoziofico, SWT.NONE);
 		lblDataDiScadenza.setBounds(192, 131, 98, 15);

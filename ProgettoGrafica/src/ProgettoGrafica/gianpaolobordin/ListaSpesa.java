@@ -8,11 +8,15 @@ import java.io.IOException;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import ProgettoGrafica.GraficaProva;
+
 public class ListaSpesa {
 	Prodotti[] lista;
 	private int nprod;
 	private final int max=100;
 	private boolean tessera;
+	
+	GraficaProva gp = new GraficaProva();
 	
 	public ListaSpesa(boolean t) {
 			nprod=0;
@@ -37,8 +41,19 @@ public class ListaSpesa {
 		}
 		return tot;
 	}
-	public void eliminaProdotto(){
+	public void eliminaProdotto(int pos){
 		if(nprod>0){
+			for(int i=pos;i<nprod;i++){
+			lista[i]=lista[i+1];
+			}
+		}
+			nprod--;
+		
+	}
+	
+	public void eliminaUltimoProdotto(){
+		if(nprod>0){
+		
 			nprod--;
 		}
 	}
@@ -47,14 +62,13 @@ public class ListaSpesa {
 		BufferedWriter scrittore;
 
 		try {
-			scrittore = new BufferedWriter(new FileWriter("Z:lista.txt", true)); //NB true per APPEND
-			//scrittore.write("Negozio Bord && Bort\n");
+			scrittore = new BufferedWriter(new FileWriter("lista.txt", true)); //NB true per APPEND
 			for(int i=0;i<this.nprod;i++){
 				if(lista[i] instanceof Alimentari){
-					scrittore.write(";" +"Alimentare: "+ lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((Alimentari)lista[i]).getScadenza() + "\r\n");
+					scrittore.write("Alimentare;"+ lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((Alimentari)lista[i]).getScadenza() + ";\r\n");
 				}
 				else{
-				scrittore.write(";" +"Non Alimentare: "+lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((NonAlimentari)lista[i]).getMateriale() + "\r\n");
+				scrittore.write("Non Alimentare;"+lista[i].nome + ";" + lista[i].prezzo + ";" +lista[i].getCodice() + ";" + ((NonAlimentari)lista[i]).getMateriale() + ";\r\n");
 				}
 			}
 			scrittore.close();
@@ -67,40 +81,47 @@ public class ListaSpesa {
 
 	}
 	
-	public void CaricaCarrello(){
+	public void CaricaCarrello() throws Exception{
 		BufferedReader lettore;
-		String riga = "";
-		String testo = "";
-		String[] elementi;
+		String riga = new String();
+		String testo = new String();
+		String[] elementi = new String[5];
+		String[] da = new String[3];
+		String pr;
 		try {
-			lettore = new BufferedReader(new FileReader("Z:lista.txt"));
-			do {
-				riga = lettore.readLine();
-				testo = testo + riga + "\n";
-				elementi = testo.split(";");
-				elementi = testo.split("/");
+			lettore = new BufferedReader(new FileReader("lista.txt"));
+			riga = lettore.readLine();
+			 while (riga != null){
+				 
+				elementi = riga.split(";");
 				// crea oggetti alim o non alim
-				if(elementi[0] == "Alimentari"){
-					int c;
+				if(elementi[0].equals("Alimentare")){
+					//prendo codice e prezzo
+					float c;
 					double p;
-					c = Integer.parseInt(elementi[1]);
-					p = Double.parseDouble(elementi[3]);
-					int g,m,a;
-					g = Integer.parseInt(elementi[4]);
-					m = Integer.parseInt(elementi[5]);
-					a = Integer.parseInt(elementi[6]);
-					Data d = new Data(g,m,a);
-					Alimentari A = new Alimentari(c, elementi[1], p, d);
+					c = Float.parseFloat(elementi[3]);
+					p = Double.parseDouble(elementi[2]);
+					da=elementi[4].split("/");
+					Data d = new Data(Integer.parseInt(da[0]),Integer.parseInt(da[1]),Integer.parseInt(da[2]));
+					//creo alimentari e aggiungo a carrello
+					Alimentari A = new Alimentari((int)c, elementi[1], p, d);
+					aggiungiCarrello(A);
+					pr =  ""+A.getNome() +" "+ A.getCodice() +" "+A.getPrezzo();
+					System.out.println(pr);
+					gp.carrello.add(pr);
 				}else{
 					
-					int c;
-					double p;
-					c = Integer.parseInt(elementi[1]);
-					p = Double.parseDouble(elementi[3]);
+					//int c;
+					double c, p;
+					c = Double.parseDouble(elementi[3]);
+					p = Double.parseDouble(elementi[2]);
+					
+					NonAlimentari na = new NonAlimentari((int)c,elementi[1],p,elementi[4]);
+					aggiungiCarrello(na);
 					
 				}
-				
-			} while (riga != null);
+				riga = lettore.readLine();
+			}
 		//	MessageDialog.openInformation(shell, "Lettura file", "Riga: " + testo);
 			
 		} catch (IOException e1) {
@@ -108,6 +129,14 @@ public class ListaSpesa {
 			e1.printStackTrace();
 			//MessageDialog.openError(shell, "Lettura file", "ERRORE");
 		}
+	}
+
+	public Prodotti[] getLista() {
+		return lista;
+	}
+	
+	public int nProdotti() {
+		return nprod;
 	}
 }
 
