@@ -101,7 +101,7 @@ public class ListaSpesa {
 					double p;
 					c = Float.parseFloat(elementi[3]);
 					p = Double.parseDouble(elementi[2]);
-				
+					
 					da=elementi[4].split("/");
 					Data d = new Data(Integer.parseInt(da[0]),Integer.parseInt(da[1]),Integer.parseInt(da[2]));
 					//creo alimentari e aggiungo a carrello

@@ -351,7 +351,7 @@ public class GraficaProva {
 					double RisPrezzo=0;
 					ls.CaricaCarrello();
 					for(int i=0;i<ls.nProdotti();i++){
-						carrello.add(Nome.getText() + ":   " +RisPrezzo + " €");
+						carrello.add(ls.getLista()[i].getNome() + ":   " +ls.getLista()[i].getPrezzo() + " €");
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -363,7 +363,7 @@ public class GraficaProva {
 		btnCaricaCarrello.setBounds(431, 287, 93, 25);
 		
 		txtTotale = new Text(shlNegoziofico, SWT.CENTER);
-		txtTotale.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
+		txtTotale.setFont(SWTResourceManager.getFont("Segoe UI Black", 11, SWT.BOLD));
 		txtTotale.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		txtTotale.setBounds(431, 318, 93, 26);
 		
