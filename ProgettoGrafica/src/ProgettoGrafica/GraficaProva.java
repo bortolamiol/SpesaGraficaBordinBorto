@@ -1,23 +1,25 @@
 package ProgettoGrafica;
 
-import javax.swing.*;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Button;
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
-import ProgettoGrafica.gianpaolobordin.*;
-import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Spinner;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.wb.swt.SWTResourceManager;
+
+import ProgettoGrafica.gianpaolobordin.Alimentari;
+import ProgettoGrafica.gianpaolobordin.Data;
+import ProgettoGrafica.gianpaolobordin.ListaSpesa;
+import ProgettoGrafica.gianpaolobordin.NonAlimentari;
+import ProgettoGrafica.gianpaolobordin.Prodotti;
 public class GraficaProva {
 
 	protected Shell shlNegoziofico;
@@ -346,7 +348,11 @@ public class GraficaProva {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
+					double RisPrezzo=0;
 					ls.CaricaCarrello();
+					for(int i=0;i<ls.nProdotti();i++){
+						carrello.add(Nome.getText() + ":   " +RisPrezzo + " €");
+					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

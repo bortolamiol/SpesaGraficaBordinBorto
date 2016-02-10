@@ -101,14 +101,15 @@ public class ListaSpesa {
 					double p;
 					c = Float.parseFloat(elementi[3]);
 					p = Double.parseDouble(elementi[2]);
+				
 					da=elementi[4].split("/");
 					Data d = new Data(Integer.parseInt(da[0]),Integer.parseInt(da[1]),Integer.parseInt(da[2]));
 					//creo alimentari e aggiungo a carrello
 					Alimentari A = new Alimentari((int)c, elementi[1], p, d);
 					aggiungiCarrello(A);
-					pr =  ""+A.getNome() +" "+ A.getCodice() +" "+A.getPrezzo();
+					/*pr =  ""+A.getNome() +" "+ A.getCodice() +" "+A.getPrezzo();
 					System.out.println(pr);
-					gp.carrello.add(pr);
+					gp.carrello.add(pr);*/
 				}else{
 					
 					//int c;
